@@ -380,7 +380,7 @@ local function buffer_close()
     vim.cmd('setlocal bufhidden=wipe')
   end
 end
-vim.keymap.set('n', '<C-w>', buffer_close, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>w', buffer_close, { noremap = true, silent = true })
 vim.keymap.set('n', '<C-b>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-0>', function()
   local nvim_tree = require('nvim-tree.api')
@@ -401,3 +401,12 @@ vim.api.nvim_set_keymap('v', '<leader>d', 'yP', { noremap = true })
 vim.keymap.set('n', '<leader><leader>', function()
   require('telescope').extensions['recent-files'].recent_files({})
 end, { noremap = true, silent = true })
+
+-- Map Ctrl+Backspace to delete word backwards in insert mode
+vim.keymap.set('i', '<C-BS>', '<C-W>', { noremap = true })
+
+-- Map Ctrl+Backspace to delete word backwards in normal mode
+vim.keymap.set('n', '<C-BS>', 'db', { noremap = true })
+
+-- Map Ctrl+Backspace to delete word backwards in command mode
+vim.keymap.set('c', '<C-BS>', '<C-W>', { noremap = true })
