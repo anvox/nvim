@@ -346,6 +346,7 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.keymap.set('n', '<leader>dk', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { buffer = true })
     vim.keymap.set('n', '<leader>dd', '<cmd>lua vim.lsp.buf.hover()<CR>', { buffer = true })
     vim.keymap.set('n', '<leader>di', '<cmd>lua vim.lsp.buf.implementation()<CR>', { buffer = true })
+    vim.keymap.set('n', '<leader>cm', ':CopyElixirModule<CR>', { noremap = true, silent = true })
   end
 })
 
@@ -410,3 +411,99 @@ vim.keymap.set('n', '<C-BS>', 'db', { noremap = true })
 
 -- Map Ctrl+Backspace to delete word backwards in command mode
 vim.keymap.set('c', '<C-BS>', '<C-W>', { noremap = true })
+
+vim.api.nvim_create_user_command('CopyElixirModule', function()
+  -- Save the current cursor position
+  local cursor_pos = vim.api.nvim_win_get_cursor(0)
+
+  -- Move to the start of the file
+  vim.cmd('normal! gg')
+
+  -- Search for the module definition
+  local module_line = vim.fn.search('^\\s*defmodule\\s\\+', 'n')
+
+  if module_line == 0 then
+    print("No module definition found.")
+    return
+  end
+
+  -- Get the line content
+  local line = vim.api.nvim_buf_get_lines(0, module_line - 1, module_line, false)[1]
+
+  -- Extract the module name
+  local module_name = line:match('defmodule%s+([%w%.]+)%s+do')
+
+  if module_name then
+    -- Copy to system clipboard
+    vim.fn.setreg('+', module_name)
+    print("Copied to clipboard: " .. module_name)
+  else
+    print("Couldn't extract module name.")
+  end
+
+  -- Restore the cursor position
+  vim.api.nvim_win_set_cursor(0, cursor_pos)
+end, {})
+
+local function copy_file_path(format)
+  local formats = {
+    full = "%:p",
+    relative = "%:.",
+    filename = "%:t",
+    directory = "%:p:h",
+  }
+  local path = vim.fn.fnamemodify(vim.fn.expand("%"), formats[format] or formats.relative)
+  vim.fn.setreg("+", path)
+  print("📋 " .. path)
+end
+
+vim.api.nvim_create_user_command('CopyPath', function(opts)
+  copy_file_path(opts.args)
+end, {
+  nargs = "?",
+  complete = function()
+    return { "full", "relative", "filename", "directory" }
+  end
+})
+
+-- Keymaps for quick access
+-- vim.keymap.set('n', '<leader>cpf', function() copy_file_path("full") end, { desc = "Copy full path" })
+vim.keymap.set('n', '<C-9>', function() copy_file_path("relative") end, { desc = "Copy relative path" })
+-- vim.keymap.set('n', '<leader>9n', function() copy_file_path("filename") end, { desc = "Copy filename" })
+-- vim.keymap.set('n', '<leader>9d', function() copy_file_path("directory") end, { desc = "Copy directory path" })
+
+-- Function to create mappings for multiple modes
+local function map_word_motion(modes, lhs, rhs_normal, rhs_insert)
+  for _, mode in ipairs(modes) do
+    if mode == 'i' then
+      vim.keymap.set(mode, lhs, rhs_insert, { noremap = true, silent = true })
+    else
+      vim.keymap.set(mode, lhs, rhs_normal, { noremap = true, silent = true })
+    end
+  end
+end
+
+map_word_motion({ 'n', 'v', 'i' }, '<C-Left>', 'b', '<C-\\><C-O>b')
+map_word_motion({ 'n', 'v', 'i' }, '<C-Right>', 'w', '<C-\\><C-O>w')
+vim.keymap.set('n', '<2-LeftMouse>', 'viw', { noremap = true, desc = "Select word on double click" })
+
+-- Map 'd' to delete to the black hole register (delete without yanking)
+vim.keymap.set({ 'n', 'v' }, 'd', '"_d', { noremap = true })
+
+-- Map 'dd' to delete line to the black hole register
+vim.keymap.set('n', 'dd', '"_dd', { noremap = true })
+
+-- Map 'D' to delete to end of line to the black hole register
+vim.keymap.set('n', 'D', '"_D', { noremap = true })
+
+-- Map 'x' to cut (delete and yank)
+vim.keymap.set({ 'n', 'v' }, 'x', 'd', { noremap = true })
+
+-- Map 'xx' to cut (delete and yank) the entire line
+vim.keymap.set('n', 'xx', 'dd', { noremap = true })
+
+-- Map 'X' to cut (delete and yank) to end of line
+vim.keymap.set('n', 'X', 'D', { noremap = true })
+
+-- Optionally, remap the original 'x' behavior to something else if you want to preserve it
+-- vim.keymap.set({'n', 'v'}, '<leader>x', 'x', { noremap = true })
