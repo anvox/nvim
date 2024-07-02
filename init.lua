@@ -187,6 +187,7 @@ require("lazy").setup({
           prompt_title = 'Live Grep in Open Files',
         }
       end, { desc = '[S]earch [/] in Open Files' })
+      vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
     end,
     pickers = {
       find_files = {
@@ -230,9 +231,9 @@ require("lazy").setup({
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false }
   },
-  { "lukas-reineke/indent-blankline.nvim", main = "ibl", opts = {} },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl",          opts = {} },
   "elixir-editors/vim-elixir",
-  "jiangmiao/auto-pairs"
+  { "windwp/nvim-autopairs",               event = "InsertEnter", config = true }
 })
 
 require("outline").setup({})
