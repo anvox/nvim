@@ -58,21 +58,26 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   'nvim-tree/nvim-web-devicons',
   'nvim-tree/nvim-tree.lua',
+  -- {
+  --   'loctvl842/monokai-pro.nvim',
+  --   overrideScheme = function(cs, p, config, hp)
+  --     local cs_override = {}
+  --     cs_override.editor = {
+  --       background = "#212121",
+  --     }
+  --     return cs_override
+  --   end,
+  --   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+  --   priority = 1000, -- make sure to load this before all the other start plugins
+  --   config = function()
+  --     -- load the colorscheme here
+  --     vim.cmd([[colorscheme monokai-pro-classic]])
+  --   end,
+  -- },
   {
-    'loctvl842/monokai-pro.nvim',
-    overrideScheme = function(cs, p, config, hp)
-      local cs_override = {}
-      cs_override.editor = {
-        background = "#212121",
-      }
-      return cs_override
-    end,
-    lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-    priority = 1000, -- make sure to load this before all the other start plugins
-    config = function()
-      -- load the colorscheme here
-      vim.cmd([[colorscheme monokai-pro-classic]])
-    end,
+    "navarasu/onedark.nvim",
+    lazy = false,
+    priority = 1000,
   },
   {
     'williamboman/mason.nvim',
@@ -237,6 +242,10 @@ require("lazy").setup({
   "nvim-lualine/lualine.nvim"
 })
 
+require('onedark').setup {
+  style = 'darker'
+}
+require('onedark').load()
 require("outline").setup({})
 require('nvim-tree').setup({
   actions = {
