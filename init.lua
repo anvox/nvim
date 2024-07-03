@@ -233,7 +233,8 @@ require("lazy").setup({
   },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl",          opts = {} },
   "elixir-editors/vim-elixir",
-  { "windwp/nvim-autopairs",               event = "InsertEnter", config = true }
+  { "windwp/nvim-autopairs",               event = "InsertEnter", config = true },
+  "nvim-lualine/lualine.nvim"
 })
 
 require("outline").setup({})
@@ -508,3 +509,49 @@ vim.keymap.set('n', 'X', 'D', { noremap = true })
 
 -- Optionally, remap the original 'x' behavior to something else if you want to preserve it
 -- vim.keymap.set({'n', 'v'}, '<leader>x', 'x', { noremap = true })
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = '' },
+    section_separators = { left = '', right = '' },
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    lualine_a = {
+      { 'mode', fmt = function(str) return str:sub(1, 3) end } },
+    lualine_b = { 'branch', 'diff', 'diagnostics' },
+    lualine_c = {
+      {
+        'filename',
+        path = 1,
+      }
+    },
+    lualine_x = { 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { 'filename' },
+    lualine_x = { 'location' },
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+}
