@@ -243,7 +243,7 @@ require("lazy").setup({
 })
 
 require('onedark').setup {
-  style = 'darker'
+  style = 'warmer'
 }
 require('onedark').load()
 require("outline").setup({})
@@ -539,7 +539,21 @@ require('lualine').setup {
   },
   sections = {
     lualine_a = {
-      { 'mode', fmt = function(str) return str:sub(1, 3) end } },
+      { 'mode',
+        fmt = function(str)
+          local mode_map = {
+            ['NORMAL'] = '🔍',
+            ['INSERT'] = '✏️',
+            ['VISUAL'] = '👁️',
+            ['V-LINE'] = '📑',
+            ['V-BLOCK'] = '🟦',
+            ['COMMAND'] = '💻',
+            ['REPLACE'] = '🔄',
+            ['TERMINAL'] = '🖥️',
+          }
+          return mode_map[str] or str
+        end
+      } },
     lualine_b = { 'branch', 'diff', 'diagnostics' },
     lualine_c = {
       {
