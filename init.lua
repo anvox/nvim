@@ -98,6 +98,12 @@ require("lazy").setup({
   },
   "neovim/nvim-lspconfig",
   "zbirenbaum/copilot.lua",
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function()
+      require("copilot_cmp").setup()
+    end
+  },
   "jose-elias-alvarez/null-ls.nvim",
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -239,7 +245,74 @@ require("lazy").setup({
   { "lukas-reineke/indent-blankline.nvim", main = "ibl",          opts = {} },
   "elixir-editors/vim-elixir",
   { "windwp/nvim-autopairs",               event = "InsertEnter", config = true },
-  "nvim-lualine/lualine.nvim"
+  "nvim-lualine/lualine.nvim",
+  -- nvim-cmp
+  {
+    "hrsh7th/nvim-cmp",
+    version = false,
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "saadparwaiz1/cmp_luasnip",
+      "onsails/lspkind.nvim",
+    },
+    opts = function()
+      local cmp = require("cmp")
+      local lspkind = require('lspkind')
+      return {
+        completion = {
+          completeopt = "menu,menuone,noinsert",
+        },
+        snippet = {
+          expand = function(args)
+            require("luasnip").lsp_expand(args.body)
+          end,
+        },
+        formatting = {
+          format = lspkind.cmp_format({
+            mode = 'symbol',
+            maxwidth = 50,
+            ellipsis_char = '...',
+            show_labelDetails = true,
+            symbol_map = { Copilot = "" }
+          })
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+          { name = "copilot", group_index = 2 },
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "path" },
+        }),
+      }
+    end,
+  },
+
+  -- LuaSnip
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      config = function()
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
+    },
+    opts = {
+      history = true,
+      delete_check_events = "TextChanged",
+    },
+  },
 })
 
 require('onedark').setup {
@@ -266,7 +339,10 @@ require('gitsigns').setup({
   },
 })
 require("ibl").setup()
-require('copilot').setup({})
+require('copilot').setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
 local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
