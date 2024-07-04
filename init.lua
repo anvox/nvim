@@ -654,3 +654,26 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
+
+-- Function definition
+function goto_beginning_of_text()
+  local line = vim.api.nvim_get_current_line()
+  local row, col = unpack(vim.api.nvim_win_get_cursor(0))
+  local first_non_blank = vim.fn.match(line, "\\S") + 1
+
+  if col == 0 then
+    vim.api.nvim_win_set_cursor(0, { row, first_non_blank - 1 })
+  elseif col == first_non_blank - 1 then
+    vim.api.nvim_win_set_cursor(0, { row, 0 })
+  else
+    vim.api.nvim_win_set_cursor(0, { row, first_non_blank - 1 })
+  end
+end
+
+-- Keymaps
+vim.keymap.set('n', '<Home>', goto_beginning_of_text, { noremap = true, silent = true })
+vim.keymap.set('i', '<Home>', function()
+  goto_beginning_of_text()
+  vim.cmd('startinsert')
+end, { noremap = true, silent = true })
+vim.keymap.set('v', '<Home>', goto_beginning_of_text, { noremap = true, silent = true })
