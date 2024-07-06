@@ -57,7 +57,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   'nvim-tree/nvim-web-devicons',
-  'nvim-tree/nvim-tree.lua',
+  {
+    'nvim-tree/nvim-tree.lua',
+  },
   -- {
   --   'loctvl842/monokai-pro.nvim',
   --   overrideScheme = function(cs, p, config, hp)
@@ -219,7 +221,9 @@ require("lazy").setup({
   {
     'ahmedkhalf/project.nvim',
     config = function()
-      require("project_nvim").setup({})
+      require("project_nvim").setup({
+        detection_methods = { "pattern", "lsp" }
+      })
     end,
   },
   "hedyhli/outline.nvim",
@@ -668,3 +672,20 @@ vim.keymap.set('i', '<Home>', function()
   vim.cmd('startinsert')
 end, { noremap = true, silent = true })
 vim.keymap.set('v', '<Home>', goto_beginning_of_text, { noremap = true, silent = true })
+
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = false,
+    git_ignored = false,
+    custom = { "^\\.git$", "^\\.elixir_ls$", "^\\.elixir-tools$", "^_build$", "^deps$", "^node_modules$", "^\\.DS_Store$", "^dist$" },
+  },
+})
