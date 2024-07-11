@@ -689,3 +689,14 @@ require("nvim-tree").setup({
     custom = { "^\\.git$", "^\\.elixir_ls$", "^\\.elixir-tools$", "^_build$", "^deps$", "^node_modules$", "^\\.DS_Store$", "^dist$" },
   },
 })
+
+local function toggle_quickfix()
+  if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 1 then
+    vim.cmd("copen")
+  else
+    vim.cmd("cclose")
+  end
+end
+
+-- Map the toggle_quickfix function to a key
+vim.keymap.set('n', '<leader>q', toggle_quickfix, { noremap = true })
