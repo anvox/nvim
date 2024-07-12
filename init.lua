@@ -690,13 +690,20 @@ require("nvim-tree").setup({
   },
 })
 
+vim.keymap.set('n', '<leader>n', ':enew<CR>', { noremap = true, silent = true })
+
 local function toggle_quickfix()
-  if vim.fn.empty(vim.fn.filter(vim.fn.getwininfo(), 'v:val.quickfix')) == 1 then
-    vim.cmd("copen")
+  local qf_exists = false
+  for _, win in pairs(vim.fn.getwininfo()) do
+    if win.quickfix == 1 then
+      qf_exists = true
+    end
+  end
+  if qf_exists == true then
+    vim.cmd "cclose"
   else
-    vim.cmd("cclose")
+    vim.cmd "copen"
   end
 end
 
--- Map the toggle_quickfix function to a key
-vim.keymap.set('n', '<leader>q', toggle_quickfix, { noremap = true })
+vim.keymap.set('n', '<leader>q', toggle_quickfix, { noremap = true, silent = true, desc = "Toggle quickfix window" })
