@@ -29,10 +29,10 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 vim.opt.scrolloff = 0
 
-vim.opt.expandtab = true -- Use spaces instead of tabs
-vim.opt.shiftwidth = 2   -- Number of spaces for each step of (auto)indent
-vim.opt.tabstop = 2      -- Number of spaces a tab counts for
-vim.opt.softtabstop = 2  -- Number of spaces a tab counts for while editing
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
 
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight when yanking (copying) text',
@@ -49,7 +49,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    "--branch=stable",
     lazypath,
   })
 end
@@ -60,22 +60,6 @@ require("lazy").setup({
   {
     'nvim-tree/nvim-tree.lua',
   },
-  -- {
-  --   'loctvl842/monokai-pro.nvim',
-  --   overrideScheme = function(cs, p, config, hp)
-  --     local cs_override = {}
-  --     cs_override.editor = {
-  --       background = "#212121",
-  --     }
-  --     return cs_override
-  --   end,
-  --   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-  --   priority = 1000, -- make sure to load this before all the other start plugins
-  --   config = function()
-  --     -- load the colorscheme here
-  --     vim.cmd([[colorscheme monokai-pro-classic]])
-  --   end,
-  -- },
   {
     "navarasu/onedark.nvim",
     lazy = false,
@@ -107,36 +91,22 @@ require("lazy").setup({
     end
   },
   "jose-elias-alvarez/null-ls.nvim",
-  { -- Highlight, edit, and navigate code
+  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
       ensure_installed = { 'bash', 'diff', 'html', 'lua', 'luadoc', 'markdown', "elixir", "eex", "heex", "javascript", "typescript" },
-      -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
         enable = true,
-        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
-        --  If you are experiencing weird indenting issues, add the language to
-        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         additional_vim_regex_highlighting = { 'ruby' },
       },
       indent = { enable = true, disable = { 'ruby' } },
     },
     config = function(_, opts)
-      -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
-
-      -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true
       ---@diagnostic disable-next-line: missing-fields
       require('nvim-treesitter.configs').setup(opts)
-
-      -- There are additional nvim-treesitter modules that you can use to interact
-      -- with nvim-treesitter. You should go explore a few and see what interests you:
-      --
-      --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
-      --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
-      --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
   {
@@ -154,7 +124,6 @@ require("lazy").setup({
       { 'nvim-telescope/telescope-ui-select.nvim' },
       { 'nvim-tree/nvim-web-devicons',            enabled = vim.g.have_nerd_font },
       { 'mollerhoj/telescope-recent-files.nvim' }
-      -- { 'smartpde/telescope-recent-files' },
     },
     config = function()
       require('telescope').setup {
@@ -165,16 +134,13 @@ require("lazy").setup({
         },
       }
 
-      -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'projects')
       pcall(require("telescope").load_extension, 'recent-files')
 
-      -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
 
-      -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -183,8 +149,6 @@ require("lazy").setup({
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
 
-      -- It's also possible to pass additional configuration options.
-      --  See `:help telescope.builtin.live_grep()` for information about particular keys
       vim.keymap.set('n', '<leader>s/', function()
         builtin.live_grep {
           grep_open_files = true,
@@ -241,7 +205,6 @@ require("lazy").setup({
   "elixir-editors/vim-elixir",
   { "windwp/nvim-autopairs",               event = "InsertEnter", config = true },
   "nvim-lualine/lualine.nvim",
-  -- nvim-cmp
   {
     "hrsh7th/nvim-cmp",
     version = false,
@@ -293,8 +256,6 @@ require("lazy").setup({
       }
     end,
   },
-
-  -- LuaSnip
   {
     "L3MON4D3/LuaSnip",
     dependencies = {
@@ -321,7 +282,6 @@ require('nvim-tree').setup({
       quit_on_open = true,
     },
   },
-  -- Remove the on_attach function if you have it
 })
 require('mini.comment').setup()
 require('gitsigns').setup({
@@ -445,11 +405,11 @@ vim.api.nvim_create_autocmd("FileType", {
 local function buffer_close()
   if vim.bo.modified then
     local choice = vim.fn.confirm("Save changes?", "&Yes\n&No\n&Cancel")
-    if choice == 1 then     -- Yes
+    if choice == 1 then
       vim.cmd('write')
-    elseif choice == 2 then -- No
+    elseif choice == 2 then
       vim.cmd('set nomodified')
-    else                    -- Cancel
+    else
       return
     end
   end
@@ -457,7 +417,6 @@ local function buffer_close()
   if #vim.fn.getbufinfo({ buflisted = 1 }) > 1 then
     vim.cmd('BufferClose')
   else
-    -- vim.cmd('quit')
     vim.cmd('BufferClose')
     vim.cmd('enew')
     vim.cmd('setlocal bufhidden=wipe')
@@ -484,24 +443,12 @@ vim.api.nvim_set_keymap('v', '<leader>d', 'yP', { noremap = true })
 vim.keymap.set('n', '<leader><leader>', function()
   require('telescope').extensions['recent-files'].recent_files({})
 end, { noremap = true, silent = true })
-
--- Map Ctrl+Backspace to delete word backwards in insert mode
 vim.keymap.set('i', '<C-BS>', '<C-W>', { noremap = true })
-
--- Map Ctrl+Backspace to delete word backwards in normal mode
 vim.keymap.set('n', '<C-BS>', 'db', { noremap = true })
-
--- Map Ctrl+Backspace to delete word backwards in command mode
 vim.keymap.set('c', '<C-BS>', '<C-W>', { noremap = true })
-
 vim.api.nvim_create_user_command('CopyElixirModule', function()
-  -- Save the current cursor position
   local cursor_pos = vim.api.nvim_win_get_cursor(0)
-
-  -- Move to the start of the file
   vim.cmd('normal! gg')
-
-  -- Search for the module definition
   local module_line = vim.fn.search('^\\s*defmodule\\s\\+', 'n')
 
   if module_line == 0 then
@@ -509,21 +456,16 @@ vim.api.nvim_create_user_command('CopyElixirModule', function()
     return
   end
 
-  -- Get the line content
   local line = vim.api.nvim_buf_get_lines(0, module_line - 1, module_line, false)[1]
-
-  -- Extract the module name
   local module_name = line:match('defmodule%s+([%w%.]+)%s+do')
 
   if module_name then
-    -- Copy to system clipboard
     vim.fn.setreg('+', module_name)
     print("Copied to clipboard: " .. module_name)
   else
     print("Couldn't extract module name.")
   end
 
-  -- Restore the cursor position
   vim.api.nvim_win_set_cursor(0, cursor_pos)
 end, {})
 
@@ -548,13 +490,8 @@ end, {
   end
 })
 
--- Keymaps for quick access
--- vim.keymap.set('n', '<leader>cpf', function() copy_file_path("full") end, { desc = "Copy full path" })
 vim.keymap.set('n', '<C-9>', function() copy_file_path("relative") end, { desc = "Copy relative path" })
--- vim.keymap.set('n', '<leader>9n', function() copy_file_path("filename") end, { desc = "Copy filename" })
--- vim.keymap.set('n', '<leader>9d', function() copy_file_path("directory") end, { desc = "Copy directory path" })
 
--- Function to create mappings for multiple modes
 local function map_word_motion(modes, lhs, rhs_normal, rhs_insert)
   for _, mode in ipairs(modes) do
     if mode == 'i' then
@@ -568,27 +505,13 @@ end
 map_word_motion({ 'n', 'v', 'i' }, '<C-Left>', 'b', '<C-\\><C-O>b')
 map_word_motion({ 'n', 'v', 'i' }, '<C-Right>', 'w', '<C-\\><C-O>w')
 vim.keymap.set('n', '<2-LeftMouse>', 'viw', { noremap = true, desc = "Select word on double click" })
-
--- Map 'd' to delete to the black hole register (delete without yanking)
 vim.keymap.set({ 'n', 'v' }, 'd', '"_d', { noremap = true })
-
--- Map 'dd' to delete line to the black hole register
 vim.keymap.set('n', 'dd', '"_dd', { noremap = true })
-
--- Map 'D' to delete to end of line to the black hole register
 vim.keymap.set('n', 'D', '"_D', { noremap = true })
-
--- Map 'x' to cut (delete and yank)
 vim.keymap.set({ 'n', 'v' }, 'x', 'd', { noremap = true })
-
--- Map 'xx' to cut (delete and yank) the entire line
 vim.keymap.set('n', 'xx', 'dd', { noremap = true })
-
--- Map 'X' to cut (delete and yank) to end of line
 vim.keymap.set('n', 'X', 'D', { noremap = true })
 
--- Optionally, remap the original 'x' behavior to something else if you want to preserve it
--- vim.keymap.set({'n', 'v'}, '<leader>x', 'x', { noremap = true })
 require('lualine').setup {
   options = {
     icons_enabled = true,
