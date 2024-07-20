@@ -155,7 +155,7 @@ require("lazy").setup({
           prompt_title = 'Live Grep in Open Files',
         }
       end, { desc = '[S]earch [/] in Open Files' })
-      vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<C-S-F>', require('telescope.builtin').live_grep, { desc = 'Search by Grep' })
     end,
     pickers = {
       find_files = {
@@ -613,7 +613,7 @@ require("nvim-tree").setup({
   },
 })
 
-vim.keymap.set('n', '<leader>n', ':enew<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>t', ':enew<CR>', { noremap = true, silent = true })
 
 local function toggle_quickfix()
   local qf_exists = false
