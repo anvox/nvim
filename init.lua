@@ -92,6 +92,26 @@ require("lazy").setup({
   },
   "jose-elias-alvarez/null-ls.nvim",
   {
+    "MunifTanjim/prettier.nvim",
+    opts = {
+      bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
+      filetypes = {
+        "css",
+        "graphql",
+        "html",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "less",
+        "markdown",
+        "scss",
+        "typescript",
+        "typescriptreact",
+        "yaml",
+      },
+    }
+  },
+  {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
@@ -423,7 +443,7 @@ local function buffer_close()
   end
 end
 vim.keymap.set('n', '<leader>w', buffer_close, { noremap = true, silent = true })
-vim.keymap.set('n', '<C-b>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>b', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<C-0>', function()
   local nvim_tree = require('nvim-tree.api')
   local current_file = vim.fn.expand('%:p')
@@ -437,8 +457,8 @@ end, { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<S-Tab>', ':BufferNext<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>o', ':Outline<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>d', 'yyp', { noremap = true })
-vim.api.nvim_set_keymap('v', '<leader>d', 'yP', { noremap = true })
+vim.api.nvim_set_keymap('n', '<C-d>', 'yyp', { noremap = true })
+vim.api.nvim_set_keymap('v', '<C-d>', 'yP', { noremap = true })
 
 vim.keymap.set('n', '<leader><leader>', function()
   require('telescope').extensions['recent-files'].recent_files({})
