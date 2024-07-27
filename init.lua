@@ -278,16 +278,45 @@ require("lazy").setup({
   },
   {
     "L3MON4D3/LuaSnip",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").lazy_load()
-      end,
-    },
     opts = {
       history = true,
       delete_check_events = "TextChanged",
     },
+    config = function(_, opts)
+      require("luasnip").setup(opts)
+
+      local ls = require("luasnip")
+      local s = ls.snippet
+      local t = ls.text_node
+      local f = ls.function_node
+      local i = ls.insert_node
+
+      local function module_name(_, _)
+        local file_path = vim.fn.expand("%:p")
+        local lib_index = string.find(file_path, "lib/")
+        if lib_index then
+          local relative_path = string.sub(file_path, lib_index + 4, -4) -- Remove "lib/" and ".ex"
+          local parts = vim.split(relative_path, "/")
+          local module_parts = {}
+          for i = 1, #parts do
+            local part = parts[i]
+            module_parts[i] = part:gsub("^%l", string.upper):gsub("_(%l)", function(l) return l:upper() end)
+          end
+          return table.concat(module_parts, ".")
+        end
+        return "ModuleName"
+      end
+
+      ls.add_snippets("elixir", {
+        s("defmod", {
+          t("defmodule "),
+          f(module_name, {}),
+          t({ " do", "  " }),
+          i(0),
+          t({ "", "end" })
+        })
+      })
+    end,
   },
 })
 
@@ -356,21 +385,21 @@ mason_lspconfig.setup_handlers {
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>',
           opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>',
-          '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa',
-          '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr',
-          '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl',
-          '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D',
-          '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+        -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>',
+        --   '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+        -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa',
+        --   '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+        -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wr',
+        --   '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+        -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wl',
+        --   '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+        -- vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>D',
+        --   '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>',
           opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>',
           opts)
-        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ca',
+        vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-a>',
           '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
         vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>e',
           '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
@@ -402,13 +431,13 @@ mason_lspconfig.setup_handlers {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "elixir",
   callback = function()
-    vim.keymap.set('n', '<leader>df', '<cmd>lua vim.lsp.buf.definition()<CR>', { buffer = true })
-    vim.keymap.set('n', '<leader>dr', '<cmd>lua vim.lsp.buf.references()<CR>', { buffer = true })
-    vim.keymap.set('n', '<leader>dj', '<cmd>lua vim.diagnostic.goto_next()<CR>', { buffer = true })
-    vim.keymap.set('n', '<leader>dk', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { buffer = true })
-    vim.keymap.set('n', '<leader>dd', '<cmd>lua vim.lsp.buf.hover()<CR>', { buffer = true })
-    vim.keymap.set('n', '<leader>di', '<cmd>lua vim.lsp.buf.implementation()<CR>', { buffer = true })
-    vim.keymap.set('n', '<leader>cm', ':CopyElixirModule<CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', { buffer = true })
+    vim.keymap.set('n', 'gf', '<cmd>lua vim.lsp.buf.references()<CR>', { buffer = true })
+    vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_next()<CR>', { buffer = true })
+    vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { buffer = true })
+    vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', { buffer = true })
+    vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', { buffer = true })
+    vim.keymap.set('n', 'cm', ':CopyElixirModule<CR>', { noremap = true, silent = true })
   end
 })
 
