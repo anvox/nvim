@@ -2,28 +2,29 @@ return {
   'nvim-tree/nvim-web-devicons',
   {
     'nvim-tree/nvim-tree.lua',
-    opts = {
-      actions = {
-        open_file = {
-          quit_on_open = true,
-        },
-      },
-      sort = {
-        sorter = "case_sensitive",
-      },
-      view = {
-        width = 30,
-      },
-      renderer = {
-        group_empty = true,
-      },
-      filters = {
-        dotfiles = false,
-        git_ignored = false,
-        custom = { "^\\.git$", "^\\.elixir_ls$", "^\\.elixir-tools$", "^_build$", "^deps$", "^node_modules$", "^\\.DS_Store$", "^dist$" },
-      },
-    },
+    opts = {},
     config = function()
+      require('nvim-tree').setup({
+        actions = {
+          open_file = {
+            quit_on_open = true,
+          },
+        },
+        sort = {
+          sorter = "case_sensitive",
+        },
+        view = {
+          width = 30,
+        },
+        renderer = {
+          group_empty = true,
+        },
+        filters = {
+          dotfiles = false,
+          git_ignored = false,
+          custom = { "^\\.git$", "^\\.elixir_ls$", "^\\.elixir-tools$", "^_build$", "^deps$", "^node_modules$", "^\\.DS_Store$", "^dist$" },
+        },
+      })
       vim.keymap.set('n', '<C-0>', function()
         local nvim_tree = require('nvim-tree.api')
         local current_file = vim.fn.expand('%:p')
