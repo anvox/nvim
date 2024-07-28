@@ -7,6 +7,9 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
+    opts = {
+      ensure_installed = { "elixirls" }
+    },
     config = function()
       require('mason-lspconfig').setup()
       require('mason-lspconfig').setup_handlers({

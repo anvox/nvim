@@ -3,33 +3,6 @@ require("config.lazy")
 require("config.general_keymaps")
 require("config.misc")
 
-require('onedark').setup {
-  style = 'warmer'
-}
-require('onedark').load()
-require("outline").setup({})
-require('nvim-tree').setup({
-  actions = {
-    open_file = {
-      quit_on_open = true,
-    },
-  },
-})
-require('mini.comment').setup()
-require('gitsigns').setup({
-  signs = {
-    add = { text = '+' },
-    change = { text = '~' },
-    delete = { text = '_' },
-    topdelete = { text = '‾' },
-    changedelete = { text = '~' },
-  },
-})
-require("ibl").setup()
-require('copilot').setup({
-  suggestion = { enabled = false },
-  panel = { enabled = false },
-})
 local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
@@ -49,10 +22,6 @@ null_ls.setup({
 -- Configure LSP for Elixir
 local nvim_lsp = require('lspconfig')
 local mason_lspconfig = require('mason-lspconfig')
-
-mason_lspconfig.setup {
-  ensure_installed = { "elixirls" }
-}
 
 mason_lspconfig.setup_handlers {
   function(server_name)
@@ -244,67 +213,6 @@ vim.keymap.set({ 'n', 'v' }, 'x', 'd', { noremap = true })
 vim.keymap.set('n', 'xx', 'dd', { noremap = true })
 vim.keymap.set('n', 'X', 'D', { noremap = true })
 
-require('lualine').setup {
-  options = {
-    icons_enabled = true,
-    theme = 'auto',
-    component_separators = { left = '', right = '' },
-    section_separators = { left = '', right = '' },
-    disabled_filetypes = {
-      statusline = {},
-      winbar = {},
-    },
-    ignore_focus = {},
-    always_divide_middle = true,
-    globalstatus = false,
-    refresh = {
-      statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
-    }
-  },
-  sections = {
-    lualine_a = {
-      { 'mode',
-        fmt = function(str)
-          local mode_map = {
-            ['NORMAL'] = '🔍',
-            ['INSERT'] = '✏️',
-            ['VISUAL'] = '👁️',
-            ['V-LINE'] = '📑',
-            ['V-BLOCK'] = '🟦',
-            ['COMMAND'] = '💻',
-            ['REPLACE'] = '🔄',
-            ['TERMINAL'] = '🖥️',
-          }
-          return mode_map[str] or str
-        end
-      } },
-    lualine_b = { 'branch', 'diff', 'diagnostics' },
-    lualine_c = {
-      {
-        'filename',
-        path = 1,
-      }
-    },
-    lualine_x = { 'filetype' },
-    lualine_y = { 'progress' },
-    lualine_z = { 'location' }
-  },
-  inactive_sections = {
-    lualine_a = {},
-    lualine_b = {},
-    lualine_c = { 'filename' },
-    lualine_x = { 'location' },
-    lualine_y = {},
-    lualine_z = {}
-  },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
-}
-
 -- Function definition
 function goto_beginning_of_text()
   local line = vim.api.nvim_get_current_line()
@@ -327,23 +235,6 @@ vim.keymap.set('i', '<Home>', function()
   vim.cmd('startinsert')
 end, { noremap = true, silent = true })
 vim.keymap.set('v', '<Home>', goto_beginning_of_text, { noremap = true, silent = true })
-
-require("nvim-tree").setup({
-  sort = {
-    sorter = "case_sensitive",
-  },
-  view = {
-    width = 30,
-  },
-  renderer = {
-    group_empty = true,
-  },
-  filters = {
-    dotfiles = false,
-    git_ignored = false,
-    custom = { "^\\.git$", "^\\.elixir_ls$", "^\\.elixir-tools$", "^_build$", "^deps$", "^node_modules$", "^\\.DS_Store$", "^dist$" },
-  },
-})
 
 vim.keymap.set('n', '<leader>t', ':enew<CR>', { noremap = true, silent = true })
 
