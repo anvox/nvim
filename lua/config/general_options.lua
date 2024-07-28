@@ -3,8 +3,6 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 vim.opt.colorcolumn = "80"
 vim.opt.hlsearch = true
 vim.opt.list = true
