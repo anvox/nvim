@@ -1,6 +1,6 @@
 return {
   "neovim/nvim-lspconfig",
-  "zbirenbaum/copilot.lua",
+  { "zbirenbaum/copilot.lua", opts = {} },
   {
     "zbirenbaum/copilot-cmp",
     opts = {

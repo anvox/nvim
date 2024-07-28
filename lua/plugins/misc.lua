@@ -1,7 +1,10 @@
 return {
   {
     "hedyhli/outline.nvim",
-    opts = {}
+    opts = {},
+    config = function()
+      vim.api.nvim_set_keymap('n', '<leader>o', ':Outline<CR>', { noremap = true, silent = true })
+    end
   },
   { 'echasnovski/mini.comment', opts = {} },
   "cappyzawa/trim.nvim",
