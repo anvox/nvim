@@ -45,7 +45,7 @@ return {
           prompt_title = 'Live Grep in Open Files',
         }
       end, { desc = '[S]earch [/] in Open Files' })
-      vim.keymap.set('n', '<C-S-F>', require('telescope.builtin').live_grep, { desc = 'Search by Grep' })
+      vim.keymap.set('n', '<C-F>', require('telescope.builtin').live_grep, { desc = 'Search by Grep' })
 
       vim.keymap.set('n', '<leader><leader>', function()
         require('telescope').extensions['recent-files'].recent_files({})
