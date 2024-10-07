@@ -9,6 +9,7 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '» ', lead = '·', trail = '·', nbsp = '␣' }
 vim.opt.mouse = 'a'
 vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.termguicolors = true
 vim.wo.signcolumn = 'yes'
 
