@@ -1,9 +1,9 @@
 return {
   {
     "hedyhli/outline.nvim",
-    opts = {},
     config = function()
       vim.api.nvim_set_keymap('n', '<leader>o', ':Outline<CR>', { noremap = true, silent = true })
+      require("outline").setup {}
     end
   },
   { 'echasnovski/mini.comment', opts = {} },
@@ -20,4 +20,19 @@ return {
     opts = {}
   },
   { "windwp/nvim-autopairs",    event = "InsertEnter", config = true },
+  {
+    'MagicDuck/grug-far.nvim',
+    config = function()
+      vim.api.nvim_set_keymap('n', '<leader>f', ':GrugFar<CR>', { noremap = true, silent = true })
+      require('grug-far').setup({
+        engine = 'astgrep'
+      });
+    end
+  },
+  {
+    "RRethy/vim-illuminate",
+    config = function()
+      require('illuminate').configure();
+    end
+  }
 }

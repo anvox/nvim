@@ -41,7 +41,7 @@ return {
       })
 
       ls.add_snippets("elixir", {
-        s("exinspect", {
+        s("inspect", {
           t("IO.inspect("),
           i(1),
           t(", label: \"🚀=============\")")
