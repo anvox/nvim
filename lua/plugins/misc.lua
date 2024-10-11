@@ -25,7 +25,7 @@ return {
     config = function()
       vim.api.nvim_set_keymap('n', '<leader>f', ':GrugFar<CR>', { noremap = true, silent = true })
       require('grug-far').setup({
-        engine = 'astgrep'
+        engine = 'ripgrep'
       });
     end
   },
