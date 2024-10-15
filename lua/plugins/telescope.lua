@@ -88,8 +88,12 @@ return {
         }
       end, { desc = '[S]earch [/] in Open Files' })
 
-      vim.keymap.set('n', '<C-F>', function()
-        builtin.live_grep({ default_text = vim.fn.expand("<cword>") })
+      vim.keymap.set({ 'n', 'v' }, '<C-F>', function()
+        if vim.fn.mode() == 'v' then
+          builtin.live_grep({ default_text = vim.fn.expand("<cword>") })
+        else
+          builtin.live_grep({})
+        end
       end, { desc = 'Search by Grep' })
 
       vim.keymap.set('n', '<leader><leader>', function()
