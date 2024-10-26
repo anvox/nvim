@@ -6,7 +6,19 @@ return {
     opts = {},
     config = function()
       require('onedark').setup {
-        style = 'warmer'
+        style = 'darker',
+        code_style = {
+          comments = 'italic',
+          keywords = 'none',
+          functions = 'italic,bold',
+          strings = 'none',
+          variables = 'none'
+        },
+        colors = {
+          bg0 = '#141619',
+          bg1 = '#1a1d23',
+          bg2 = '#1f2329',
+        },
       }
       require("onedark").load()
     end,
