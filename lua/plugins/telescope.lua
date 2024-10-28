@@ -1,5 +1,9 @@
 return {
   {
+    "fdschmidt93/telescope-egrepify.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  },
+  {
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
     dependencies = {
@@ -71,6 +75,7 @@ return {
       pcall(require('telescope').load_extension, 'ui-select')
       pcall(require('telescope').load_extension, 'projects')
       pcall(require("telescope").load_extension, 'recent-files')
+      pcall(require("telescope").load_extension, 'egrepify')
 
       local builtin = require 'telescope.builtin'
 
