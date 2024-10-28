@@ -73,7 +73,8 @@ mason_lspconfig.setup_handlers {
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "elixir",
   callback = function()
-    vim.keymap.set('n', 'cm', ':CopyElixirModule<CR>', { noremap = true, silent = true })
+    vim.keymap.set('n', '<C-8>', ':CopyElixirModule<CR>',
+      { noremap = true, silent = true, desc = 'Copy Elixir module name' })
   end
 })
 
