@@ -4,6 +4,16 @@ return {
     'nvim-tree/nvim-tree.lua',
     opts = {},
     config = function()
+      vim.cmd([[
+        highlight NvimTreeFolderIcon guifg=#7aa2f7
+        highlight NvimTreeFolderName guifg=#7aa2f7
+        highlight NvimTreeIndentMarker guifg=#3b4261
+        highlight NvimTreeNormal guibg=NONE
+        highlight NvimTreeCursorLine guibg=#2d3343
+        highlight NvimTreeVertSplit guifg=#1f2335
+        highlight NvimTreeEndOfBuffer guifg=#1f2335
+        highlight NvimTreeOpenedFolderName guifg=#7aa2f7
+      ]])
       require('nvim-tree').setup({
         actions = {
           open_file = {
