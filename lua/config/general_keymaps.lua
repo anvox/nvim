@@ -58,6 +58,11 @@ vim.api.nvim_set_keymap('v', '<C-d>', 'yP', { noremap = true, desc = "Duplicate 
 vim.api.nvim_set_keymap('v', '<C-S-J>', 'J',
   { noremap = true, silent = true, desc = "Join selected lines in visual mode" })
 
+vim.api.nvim_set_keymap("n", "ca", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "ca", "<cmd>CodeCompanionActions<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "ct", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("v", "ct", "<cmd>CodeCompanionChat Toggle<cr>", { noremap = true, silent = true })
+
 function goto_beginning_of_text()
   local line = vim.api.nvim_get_current_line()
   local row, col = unpack(vim.api.nvim_win_get_cursor(0))

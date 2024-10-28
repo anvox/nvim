@@ -94,13 +94,30 @@ return {
       end, { desc = '[S]earch [/] in Open Files' })
 
       vim.keymap.set({ 'n', 'v' }, '<C-F>', function()
+        local telescope = require("telescope")
         if vim.fn.mode() == 'v' then
-          builtin.live_grep({ default_text = vim.fn.expand("<cword>") })
+          telescope.extensions.egrepify.egrepify({
+            default_text = vim.fn.expand("<cword>"),
+            -- Additional options for better experience
+            only_sort_text = true,   -- Only sort the text, not the filename
+            word_match = "-w",       -- Match whole words
+            case_sensitive = false,  -- Case insensitive search
+            fuzzy = false,           -- Exact match by default
+            use_regex = false,       -- Don't use regex by default
+            duplicate_files = false, -- Don't show duplicate files
+          })
         else
-          builtin.live_grep({})
+          telescope.extensions.egrepify.egrepify({
+            -- Same additional options
+            only_sort_text = true,
+            word_match = "-w",
+            case_sensitive = false,
+            fuzzy = false,
+            use_regex = false,
+            duplicate_files = false,
+          })
         end
-      end, { desc = 'Search by Grep' })
-
+      end, { desc = 'Search by Egrepify' })
       vim.keymap.set('n', '<leader><leader>', function()
         require('telescope').extensions['recent-files'].recent_files({
           case_mode = "ignore_case",

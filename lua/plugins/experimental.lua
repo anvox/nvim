@@ -17,6 +17,7 @@ return {
     ---@type quicker.SetupOptions
     opts = {},
   },
+  { 'kevinhwang91/nvim-bqf', ft = 'qf', opts = {} },
   {
     "utilyre/sentiment.nvim",
     version = "*",

@@ -31,6 +31,19 @@ return {
             symbol_map = { Copilot = "" }
           })
         },
+        window = {
+          completion = {
+            border = "rounded",
+            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:PmenuSel,Search:None",
+            scrollbar = false,
+            col_offset = -3,
+            side_padding = 0,
+          },
+          documentation = {
+            border = "rounded",
+            winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+          },
+        },
         mapping = cmp.mapping.preset.insert({
           ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
           ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
