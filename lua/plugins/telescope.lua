@@ -79,20 +79,17 @@ return {
 
       local builtin = require 'telescope.builtin'
 
+      vim.keymap.set('n', '<leader><leader>', function()
+        require('telescope').extensions['recent-files'].recent_files({
+          case_mode = "ignore_case",
+        })
+      end, { noremap = true, silent = true, desc = 'Recent files' })
       vim.keymap.set('n', '<leader>/', function()
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
           winblend = 10,
           previewer = false,
         })
       end, { desc = '[/] Fuzzily search in current buffer' })
-
-      vim.keymap.set('n', '<leader>s/', function()
-        builtin.live_grep {
-          grep_open_files = true,
-          prompt_title = 'Live Grep in Open Files',
-        }
-      end, { desc = '[S]earch [/] in Open Files' })
-
       vim.keymap.set({ 'n', 'v' }, '<C-F>', function()
         local telescope = require("telescope")
         if vim.fn.mode() == 'v' then
@@ -118,11 +115,13 @@ return {
           })
         end
       end, { desc = 'Search by Egrepify' })
-      vim.keymap.set('n', '<leader><leader>', function()
-        require('telescope').extensions['recent-files'].recent_files({
-          case_mode = "ignore_case",
+      vim.keymap.set('n', 'bb', function()
+        require('telescope.builtin').buffers({
+          show_all_buffers = true,
+          sort_lastused = true,
+          ignore_current_buffer = false,
         })
-      end, { noremap = true, silent = true })
+      end, { noremap = true, silent = true, desc = 'Buffers' })
     end,
   },
 }

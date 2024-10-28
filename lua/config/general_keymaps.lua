@@ -84,28 +84,14 @@ vim.keymap.set('i', '<Home>', function()
 end, { noremap = true, silent = true })
 vim.keymap.set('v', '<Home>', goto_beginning_of_text, { noremap = true, silent = true })
 
-local function copy_file_path(format)
-  local formats = {
-    full = "%:p",
-    relative = "%:.",
-    filename = "%:t",
-    directory = "%:p:h",
-  }
-  local path = vim.fn.fnamemodify(vim.fn.expand("%"), formats[format] or formats.relative)
-  vim.fn.setreg("+", path)
-  print("📋 " .. path)
-end
+vim.keymap.set('n', '<C-9>', function()
+  local full_path = vim.fn.expand("%:p")
+  local cwd = vim.fn.getcwd()
+  local relative_path = full_path:sub(#cwd + 2) -- +2 to remove the trailing slash
 
-vim.api.nvim_create_user_command('CopyPath', function(opts)
-  copy_file_path(opts.args)
-end, {
-  nargs = "?",
-  complete = function()
-    return { "full", "relative", "filename", "directory" }
-  end
-})
-
-vim.keymap.set('n', '<C-9>', function() copy_file_path("relative") end, { desc = "Copy relative path" })
+  vim.fn.setreg("+", relative_path)
+  print("📋 " .. relative_path)
+end, { desc = "Copy relative path" })
 
 local function toggle_quickfix()
   local qf_exists = false

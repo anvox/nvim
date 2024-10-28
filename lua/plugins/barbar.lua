@@ -1,6 +1,7 @@
 return {
   {
     "romgrk/barbar.nvim",
+    opts = { animation = true },
     config = function()
       local function buffer_close()
         if vim.bo.modified then
