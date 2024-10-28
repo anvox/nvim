@@ -4,31 +4,6 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
--- Elixir
-
-vim.api.nvim_create_user_command('CopyElixirModule', function()
-  local cursor_pos = vim.api.nvim_win_get_cursor(0)
-  vim.cmd('normal! gg')
-  local module_line = vim.fn.search('^\\s*defmodule\\s\\+', 'n')
-
-  if module_line == 0 then
-    print("👺 No module definition found.")
-    return
-  end
-
-  local line = vim.api.nvim_buf_get_lines(0, module_line - 1, module_line, false)[1]
-  local module_name = line:match('defmodule%s+([%w%.]+)%s+do')
-
-  if module_name then
-    vim.fn.setreg('+', module_name)
-    print("📋 " .. module_name)
-  else
-    print("👺 No module name found.")
-  end
-
-  vim.api.nvim_win_set_cursor(0, cursor_pos)
-end, {})
-
 -- Look like sublime text
 local function map_word_motion(modes, lhs, rhs_normal, rhs_insert)
   for _, mode in ipairs(modes) do
