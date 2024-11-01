@@ -97,3 +97,5 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.softtabstop = 2
   end
 })
+
+vim.cmd('command! -nargs=1 -complete=file Diff vert diffsplit <args>')
