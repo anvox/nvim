@@ -6,7 +6,6 @@ return {
       require("outline").setup {}
     end
   },
-  { 'echasnovski/mini.comment', opts = {} },
   "cappyzawa/trim.nvim",
   {
     'folke/todo-comments.nvim',
@@ -14,12 +13,7 @@ return {
     dependencies = { 'nvim-lua/plenary.nvim' },
     opts = { signs = false }
   },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    main = "ibl",
-    opts = {}
-  },
-  { "windwp/nvim-autopairs",    event = "InsertEnter", config = true },
+  { "lukas-reineke/indent-blankline.nvim", main = "ibl",    opts = {} },
   {
     'MagicDuck/grug-far.nvim',
     config = function()
@@ -29,10 +23,10 @@ return {
       });
     end
   },
-  {
-    "RRethy/vim-illuminate",
-    config = function()
-      require('illuminate').configure();
-    end
-  }
+  { 'echasnovski/mini.pairs',              version = false, opts = {} },
+  { 'echasnovski/mini.comment',            opts = {} },
+  { 'echasnovski/mini.cursorword',         version = false, opts = {} },
+  { 'echasnovski/mini-git',                version = false, main = 'mini.git', opts = {} },
+  { 'echasnovski/mini.notify',             version = false, opts = {} },
+  { 'echasnovski/mini.diff',               version = false, opts = {} },
 }
