@@ -11,7 +11,7 @@ return {
       require("copilot_cmp").setup()
     end
   },
-  "jose-elias-alvarez/null-ls.nvim",
+  "nvimtools/none-ls.nvim",
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "main",

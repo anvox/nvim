@@ -14,15 +14,6 @@ return {
     opts = { signs = false }
   },
   { "lukas-reineke/indent-blankline.nvim", main = "ibl",    opts = {} },
-  {
-    'MagicDuck/grug-far.nvim',
-    config = function()
-      vim.api.nvim_set_keymap('n', '<leader>f', ':GrugFar<CR>', { noremap = true, silent = true })
-      require('grug-far').setup({
-        engine = 'ripgrep'
-      });
-    end
-  },
   { 'echasnovski/mini.pairs',              version = false, opts = {} },
   { 'echasnovski/mini.comment',            opts = {} },
   { 'echasnovski/mini.cursorword',         version = false, opts = {} },
