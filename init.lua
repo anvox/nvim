@@ -99,3 +99,28 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.cmd('command! -nargs=1 -complete=file Diff vert diffsplit <args>')
+
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = function(diagnostic)
+      local severity_map = {
+        [vim.diagnostic.severity.ERROR] = "🔴", -- Error
+        [vim.diagnostic.severity.WARN] = "⚠️", -- Warning
+        [vim.diagnostic.severity.INFO] = "ℹ️", -- Information
+        [vim.diagnostic.severity.HINT] = "💡", -- Hint
+      }
+      return severity_map[diagnostic.severity]
+    end,
+    source = "if_many",
+    format = function(diagnostic)
+      return diagnostic.message
+    end,
+  },
+  float = {
+    source = "if_many",
+  },
+  signs = true,
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
+})
