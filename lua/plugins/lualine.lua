@@ -49,7 +49,7 @@ return {
               local line = vim.fn.line('.')
               local col = vim.fn.col('.')
               local total = vim.fn.line('$')
-              return string.format("%4d|%4d/%4d", col, line, total)
+              return string.format("%4d|%-4d/%4d", col, line, total)
             end
           }
         }
