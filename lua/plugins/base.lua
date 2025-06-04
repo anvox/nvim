@@ -19,6 +19,9 @@ return {
           bg1 = '#1a1d23',
           bg2 = '#1f2329',
         },
+        highlights = {
+          ColorColumn = { bg = '#4a4a4a' },
+        }
       }
       require("onedark").load()
     end,

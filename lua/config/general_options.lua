@@ -3,7 +3,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = "80,100"
 vim.opt.hlsearch = true
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', lead = '·', trail = '·', nbsp = '␣' }
@@ -32,4 +32,3 @@ vim.opt.expandtab = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
-
