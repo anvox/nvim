@@ -42,8 +42,17 @@ return {
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { { 'filename', path = 1 } },
         lualine_x = { 'copilot' },
-        lualine_y = { 'progress' },
-        lualine_z = { 'location' }
+        lualine_y = {},
+        lualine_z = {
+          {
+            function()
+              local line = vim.fn.line('.')
+              local col = vim.fn.col('.')
+              local total = vim.fn.line('$')
+              return string.format("%d|%d/%d", col, line, total)
+            end
+          }
+        }
       },
       inactive_sections = {
         lualine_a = {},
