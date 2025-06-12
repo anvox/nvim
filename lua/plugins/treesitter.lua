@@ -3,7 +3,7 @@ return {
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'diff', 'html', 'lua', 'luadoc', 'markdown', "elixir", "eex", "heex", "javascript", "typescript" },
+      ensure_installed = { 'bash', 'diff', 'html', 'lua', 'luadoc', 'markdown', "elixir", "eex", "heex", "javascript", "typescript", "terraform", "hcl" },
       auto_install = true,
       highlight = {
         enable = true,
