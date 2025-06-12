@@ -11,7 +11,6 @@ return {
           comments = 'italic',
           keywords = 'none',
           functions = 'italic,bold',
-          strings = 'none',
           variables = 'none'
         },
         colors = {
@@ -21,6 +20,8 @@ return {
         },
         highlights = {
           ColorColumn = { bg = '#4a4a4a' },
+          String = { fg = '#d4d4d4' },
+          ['@string'] = { fg = '#d4d4d4' },
         }
       }
       require("onedark").load()
@@ -34,19 +35,4 @@ return {
       })
     end,
   },
-  -- {
-  --   'projekt0n/github-nvim-theme',
-  --   name = 'github-theme',
-  --   lazy = false,    -- make sure we load this during startup if it is your main colorscheme
-  --   priority = 1000, -- make sure to load this before all the other start plugins
-  --   config = function()
-  --     require('github-theme').setup({
-  --       options = {
-  --         transparent = false
-  --       }
-  --     })
-  --
-  --     vim.cmd('colorscheme github_dark_default')
-  --   end,
-  -- }
 }
