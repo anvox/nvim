@@ -22,6 +22,7 @@ return {
           ColorColumn = { bg = '#4a4a4a' },
           String = { fg = '#d4d4d4' },
           ['@string'] = { fg = '#d4d4d4' },
+          Visual = { bg = '#434752' }
         }
       }
       require("onedark").load()
