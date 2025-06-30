@@ -76,9 +76,12 @@ return {
       pcall(require('telescope').load_extension, 'projects')
       pcall(require("telescope").load_extension, 'recent-files')
       pcall(require("telescope").load_extension, 'egrepify')
+      pcall(require("telescope").load_extension, 'egrepify')
+      pcall(require("telescope").load_extension, 'auto-session')
 
       local builtin = require 'telescope.builtin'
 
+      vim.keymap.set('n', '<leader>fp', '<cmd>Telescope projects<cr>', { desc = '🚀 Switch Projects' })
       vim.keymap.set('n', '<leader><leader>', function()
         require('telescope').extensions['recent-files'].recent_files({
           case_mode = "ignore_case",

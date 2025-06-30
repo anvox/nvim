@@ -36,4 +36,15 @@ return {
       })
     end,
   },
+  {
+    'rmagatti/auto-session',
+    config = function()
+      require('auto-session').setup({
+        auto_session_suppress_dirs = { '~/', '~/Downloads', '/' },
+        -- This makes it work seamlessly with project.nvim
+        auto_session_use_git_branch = false,    -- optional: per-branch sessions
+        auto_session_enable_last_session = false, -- let project.nvim handle switching
+      })
+    end
+  },
 }

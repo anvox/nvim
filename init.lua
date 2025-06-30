@@ -7,7 +7,7 @@ local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.credo,
-    null_ls.builtins.formatting.mix
+    null_ls.builtins.formatting.mix,
   },
   on_attach = function(client, bufnr)
     if client.server_capabilities.document_formatting then
@@ -123,4 +123,22 @@ vim.diagnostic.config({
   underline = true,
   update_in_insert = false,
   severity_sort = true,
+})
+
+local emoji_signs = {
+  Error = "🚨", -- or "❌", "🔥", "💥"
+  Warn = "⚠️", -- or "🚧", "⚡", "🔶"
+  Hint = "💡", -- or "🔍", "💭", "✨"
+  Info = "ℹ️" -- or "📝", "🔷", "📌"
+}
+-- 🔧 Apply the diagnostic signs
+vim.diagnostic.config({
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = emoji_signs.Error,
+      [vim.diagnostic.severity.WARN] = emoji_signs.Warn,
+      [vim.diagnostic.severity.HINT] = emoji_signs.Hint,
+      [vim.diagnostic.severity.INFO] = emoji_signs.Info,
+    }
+  }
 })
