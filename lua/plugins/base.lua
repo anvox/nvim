@@ -6,7 +6,7 @@ return {
     opts = {},
     config = function()
       require('onedark').setup {
-        style = 'dark',
+        style = 'warm',
         code_style = {
           comments = 'italic',
           keywords = 'none',
