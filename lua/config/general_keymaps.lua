@@ -4,20 +4,6 @@ vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' }
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
 
--- Look like sublime text
-local function map_word_motion(modes, lhs, rhs_normal, rhs_insert)
-  for _, mode in ipairs(modes) do
-    if mode == 'i' then
-      vim.keymap.set(mode, lhs, rhs_insert, { noremap = true, silent = true })
-    else
-      vim.keymap.set(mode, lhs, rhs_normal, { noremap = true, silent = true })
-    end
-  end
-end
-
-map_word_motion({ 'n', 'v', 'i' }, '<C-Left>', 'b', '<C-\\><C-O>b')
-map_word_motion({ 'n', 'v', 'i' }, '<C-Right>', 'w', '<C-\\><C-O>w')
-vim.keymap.set('n', '<2-LeftMouse>', 'viw', { noremap = true, desc = "Select word on double click" })
 vim.keymap.set({ 'n', 'v' }, 'd', '"_d', { noremap = true })
 vim.keymap.set('n', 'dd', '"_dd', { noremap = true })
 vim.keymap.set('n', 'D', '"_D', { noremap = true })
