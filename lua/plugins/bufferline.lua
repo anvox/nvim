@@ -48,6 +48,11 @@ return {
       vim.keymap.set('n', '<C-S-Right>', ':BufferLineMoveNext<CR>',
         { noremap = true, silent = true, desc = '➡️ Move tab right' })
 
+      for i = 1, 9 do
+        vim.keymap.set('n', '<A-' .. i .. '>', '<cmd>BufferLineGoToBuffer ' .. i .. '<cr>',
+          { desc = '🔢 Go to buffer ' .. i })
+      end
+
       require("bufferline").setup({
         options = {
           -- 📌 Enable close icons for pinned buffers
