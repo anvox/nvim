@@ -30,7 +30,7 @@ return {
       vim.keymap.set('n', '<leader>t', ':enew<CR>', { noremap = true, silent = true, desc = '🗂️ New buffer' })
 
       -- 🧹 Close all unpinned tabs
-      vim.keymap.set('n', '<leader>W', ':BufferLineGroupClose ungrouped',
+      vim.keymap.set('n', '<leader>W', ':BufferLineGroupClose ungrouped<CR>',
         { noremap = true, silent = true, desc = '🧹 Close unpinned tabs' })
 
       -- 🔄 Cycle through tabs
