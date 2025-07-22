@@ -62,6 +62,9 @@ return {
           numbers = "ordinal",
           -- 📌 Show pin indicator
           show_tab_indicators = true,
+          indicator = {
+            style = 'underline',
+          }
         },
         highlights = {
           background = {
