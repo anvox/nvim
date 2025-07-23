@@ -13,7 +13,7 @@ return {
     'williamboman/mason-lspconfig.nvim',
     version = "1.32.0",
     opts = {
-      ensure_installed = { "elixirls" }
+      ensure_installed = { "elixirls", "ts_ls" }
     },
     config = function()
       require('mason-lspconfig').setup()
