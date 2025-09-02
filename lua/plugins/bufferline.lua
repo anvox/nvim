@@ -5,6 +5,18 @@ return {
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
       local function buffer_close()
+        -- 📌 Simple approach: try closing and let bufferline handle pinned buffers
+        -- Or manually track pinned buffers with a custom approach
+        local bufnr = vim.api.nvim_get_current_buf()
+
+        -- Check if we have a custom pin marker (you can set this when pinning)
+        local is_pinned = vim.b[bufnr].is_pinned or false
+
+        if is_pinned then
+          vim.notify("🚫 Cannot close pinned buffer", vim.log.levels.WARN)
+          return
+        end
+
         if vim.bo.modified then
           local choice = vim.fn.confirm("Save changes?", "&Yes\n&No\n&Cancel")
           if choice == 1 then
@@ -26,7 +38,8 @@ return {
       end
 
       -- 🗂️ Tab management keymaps
-      vim.keymap.set('n', '<leader>w', buffer_close, { noremap = true, silent = true, desc = '🗂️ Close buffer' })
+      vim.keymap.set('n', '<leader>w', buffer_close,
+        { noremap = true, silent = true, desc = '🗂️ Close buffer (skip pinned)' })
       vim.keymap.set('n', '<leader>t', ':enew<CR>', { noremap = true, silent = true, desc = '🗂️ New buffer' })
 
       -- 🧹 Close all unpinned tabs
@@ -38,9 +51,24 @@ return {
         { noremap = true, silent = true, desc = '🔄 Previous tab' })
       vim.keymap.set('n', '<C-Right>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true, desc = '🔄 Next tab' })
 
-      -- 📌 Pin/unpin current tab
-      vim.keymap.set('n', '<C-p>', ':BufferLineTogglePin<CR>',
-        { noremap = true, silent = true, desc = '📌 Toggle pin tab' })
+      -- 📌 Pin/unpin current tab with custom tracking
+      vim.keymap.set('n', '<C-p>', function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local is_currently_pinned = vim.b[bufnr].is_pinned or false
+
+        -- Toggle the pin state
+        vim.cmd('BufferLineTogglePin')
+
+        -- Update our custom tracking
+        vim.b[bufnr].is_pinned = not is_currently_pinned
+
+        -- Provide feedback
+        if vim.b[bufnr].is_pinned then
+          vim.notify("📌 Buffer pinned", vim.log.levels.INFO)
+        else
+          vim.notify("📌 Buffer unpinned", vim.log.levels.INFO)
+        end
+      end, { noremap = true, silent = true, desc = '📌 Toggle pin tab' })
 
       -- ⬅️➡️ Move current tab forward/backward
       vim.keymap.set('n', '<C-S-Left>', ':BufferLineMovePrev<CR>',
