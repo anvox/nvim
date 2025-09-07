@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/av/Maffiaco/sicily/**)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
