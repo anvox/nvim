@@ -33,7 +33,6 @@ return {
     },
     config = function()
       require("mason-null-ls").setup({
-        ensure_installed = { "prettierd" },
         automatic_installation = true,
       })
     end,

@@ -2,7 +2,7 @@ return {
   {
     "MunifTanjim/prettier.nvim",
     opts = {
-      bin = 'prettierd', -- or `'prettierd'` (v0.23.3+)
+      bin = 'prettier', -- or `'prettierd'` (v0.23.3+)
       filetypes = {
         "css",
         "graphql",
