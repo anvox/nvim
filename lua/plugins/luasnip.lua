@@ -39,12 +39,18 @@ return {
           t({ "", "end" })
         })
       })
-
       ls.add_snippets("elixir", {
         s("inspect", {
           t("IO.inspect("),
           i(1),
-          t(", label: \"🚀=============\")")
+          t(", label: \"🐞 ⚠️ 🙈 💣=============\")")
+        })
+      })
+      ls.add_snippets("elixir", {
+        s("pipespect", {
+          t("|> IO.inspect(label: \"🐞 ⚠️ 🙈 💣============= "),
+          i(1),
+          t(" \")")
         })
       })
 
@@ -78,7 +84,7 @@ return {
           t({ "", "", "  // 12. 🔄 Return Statement", "  return (", "    <>", "      " }),
           i(0, "Content"),
           t({ "", "    </>", "  );", "};", "", "export default " }),
-          f(function(args) return args[1][1] end, {1}),
+          f(function(args) return args[1][1] end, { 1 }),
           t(";")
         }),
 
