@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Read(//Users/av/Maffiaco/sicily/**)"
+      "Read(//Users/av/Maffiaco/sicily/**)",
+      "Bash(find:*)"
     ],
     "deny": [],
     "ask": []
