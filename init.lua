@@ -20,12 +20,11 @@ null_ls.setup({
 })
 
 -- Configure LSP for Elixir
-local nvim_lsp = require('lspconfig')
 local mason_lspconfig = require('mason-lspconfig')
 
 mason_lspconfig.setup_handlers {
   function(server_name)
-    nvim_lsp[server_name].setup {
+    vim.lsp.config[server_name] = {
       on_attach = function(client, bufnr)
         local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
         buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
