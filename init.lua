@@ -24,11 +24,9 @@ null_ls.setup({
 -- Configure LSP for Elixir
 local mason_lspconfig = require('mason-lspconfig')
 
-local lspconfig = require('lspconfig')
-
 mason_lspconfig.setup_handlers {
   function(server_name)
-    lspconfig[server_name].setup({
+    vim.lsp.config[server_name] = {
       on_attach = function(client, bufnr)
         vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
@@ -53,7 +51,7 @@ mason_lspconfig.setup_handlers {
           fetchDeps = false
         }
       } or {}
-    })
+    }
   end,
 }
 
