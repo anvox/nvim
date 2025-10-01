@@ -21,40 +21,6 @@ null_ls.setup({
   end,
 })
 
--- Configure LSP for Elixir
-local mason_lspconfig = require('mason-lspconfig')
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    vim.lsp.config[server_name] = {
-      on_attach = function(client, bufnr)
-        vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
-        local opts = { buffer = bufnr, noremap = true, silent = true }
-
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-        vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-        vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
-        vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-        vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-
-        vim.api.nvim_buf_create_user_command(bufnr, 'Format', function()
-          vim.lsp.buf.format()
-        end, {})
-      end,
-      settings = server_name == "elixirls" and {
-        elixirLS = {
-          dialyzerEnabled = true,
-          fetchDeps = false
-        }
-      } or {}
-    }
-  end,
-}
-
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "elixir",
   callback = function()

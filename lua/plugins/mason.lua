@@ -1,26 +1,20 @@
--- Temporary lock version until these issue fixed
--- https://github.com/ayamir/nvimdots/issues/1461
--- https://github.com/mason-org/mason-lspconfig.nvim/issues/545
 return {
   {
     'williamboman/mason.nvim',
-    version = "1.11.0",
     config = function()
       require('mason').setup()
     end
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    version = "1.32.0",
-    opts = {
-      ensure_installed = { "elixirls", "ts_ls" }
+    dependencies = {
+      'williamboman/mason.nvim',
+      'neovim/nvim-lspconfig',
     },
     config = function()
-      require('mason-lspconfig').setup()
-      require('mason-lspconfig').setup_handlers({
-        function(server_name)
-          vim.lsp.config[server_name] = {}
-        end,
+      require('mason-lspconfig').setup({
+        ensure_installed = { "elixirls", "ts_ls" },
+        automatic_enable = true,
       })
     end
   },
