@@ -43,12 +43,12 @@ return {
         s("inspect", {
           t("IO.inspect("),
           i(1),
-          t(", label: \"🐞 ⚠️ 🙈 💣=============\")")
+          t(", label: \"🐞 ⚠️ 🙈 💣============= #{__ENV__.file}:#{__ENV__.line}\")")
         })
       })
       ls.add_snippets("elixir", {
         s("pipespect", {
-          t("|> IO.inspect(label: \"🐞 ⚠️ 🙈 💣============= "),
+          t("|> IO.inspect(label: \"🐞 ⚠️ 🙈 💣============= #{__ENV__.file}:#{__ENV__.line} "),
           i(1),
           t(" \")")
         })
