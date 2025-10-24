@@ -1,5 +1,60 @@
 return {
-  'nvim-tree/nvim-web-devicons',
+  {
+    'nvim-tree/nvim-web-devicons',
+    config = function()
+      require('nvim-web-devicons').setup({
+        override_by_filename = {
+          [".storybook"] = {
+            icon = "󰈙",
+            color = "#ff4785",
+            name = "Storybook"
+          }
+        },
+        override_by_extension = {
+          ["stories.tsx"] = {
+            icon = "󰈙",
+            color = "#ff4785",
+            name = "Storybook"
+          },
+          ["stories.ts"] = {
+            icon = "󰈙",
+            color = "#ff4785",
+            name = "Storybook"
+          },
+          ["stories.jsx"] = {
+            icon = "󰈙",
+            color = "#ff4785",
+            name = "Storybook"
+          },
+          ["stories.js"] = {
+            icon = "󰈙",
+            color = "#ff4785",
+            name = "Storybook"
+          },
+          ["story.tsx"] = {
+            icon = "󰈙",
+            color = "#ff4785",
+            name = "Storybook"
+          },
+          ["story.ts"] = {
+            icon = "󰈙",
+            color = "#ff4785",
+            name = "Storybook"
+          },
+          ["story.jsx"] = {
+            icon = "󰈙",
+            color = "#ff4785",
+            name = "Storybook"
+          },
+          ["story.js"] = {
+            icon = "󰈙",
+            color = "#ff4785",
+            name = "Storybook"
+          }
+        }
+      })
+    end
+  },
   {
     'nvim-tree/nvim-tree.lua',
     opts = {},
