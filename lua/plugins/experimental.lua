@@ -1,24 +1,5 @@
 return {
   {
-    "olimorris/codecompanion.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "hrsh7th/nvim-cmp",                      -- Optional: For using slash commands and variables in the chat buffer
-      "nvim-telescope/telescope.nvim",         -- Optional: For using slash commands
-      { "stevearc/dressing.nvim", opts = {} }, -- Optional: Improves `vim.ui.select`
-    },
-    config = true
-  },
-  {
-    'stevearc/quicker.nvim',
-    event = "FileType qf",
-    ---@module "quicker"
-    ---@type quicker.SetupOptions
-    opts = {},
-  },
-  { 'kevinhwang91/nvim-bqf', ft = 'qf', opts = {} },
-  {
     "utilyre/sentiment.nvim",
     version = "*",
     event = "VeryLazy", -- keep for lazy loading
