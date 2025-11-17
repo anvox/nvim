@@ -1,6 +1,7 @@
 return {
   {
     "navarasu/onedark.nvim",
+    tag = "v0.1.0",
     lazy = false,
     priority = 1000,
     opts = {},
