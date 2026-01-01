@@ -7,7 +7,9 @@ local null_ls = require("null-ls")
 null_ls.setup({
   sources = {
     null_ls.builtins.diagnostics.credo,
-    null_ls.builtins.formatting.mix,
+    null_ls.builtins.formatting.mix.with({
+      filetypes = { "elixir", "heex", "eex" },
+    }),
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
