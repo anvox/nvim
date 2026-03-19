@@ -23,11 +23,23 @@ return {
       { 'mollerhoj/telescope-recent-files.nvim' }
     },
     config = function()
-      require('telescope').setup {
+      local telescope = require('telescope')
+      local actions = require('telescope.actions')
+      local action_state = require('telescope.actions.state')
+
+      local function flash(prompt_bufnr)
+        require("flash").telescope(prompt_bufnr)
+      end
+
+      telescope.setup {
         defaults = {
           file_ignore_patterns = {},
           file_sorter = require('telescope.sorters').get_fuzzy_file,
           generic_sorter = require('telescope.sorters').get_generic_fuzzy_sorter,
+          mappings = {
+            i = { ["<c-s>"] = flash },
+            n = { ["s"] = flash },
+          },
         },
         extensions = {
           ['ui-select'] = {
