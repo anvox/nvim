@@ -109,4 +109,6 @@ vim.diagnostic.config({
 vim.api.nvim_set_hl(0, "MarkSignHL", { fg = "#FFA500", bg = "#505050", bold = true })
 vim.api.nvim_set_hl(0, "MarkSignNumHL", { fg = "#FFA500", bg = "#505050" })
 
-vim.keymap.set('n', '<C-e>', ':Telescope fusen marks<cr>', { desc = 'List all marks' })
+vim.keymap.set('n', '<C-e>', ':Telescope fusen marks<cr>', { desc = 'List all 📝 marks' })
+vim.keymap.set('n', '<C-m>', ':Telescope marks<cr>', { desc = 'List all 🔡 marks' })
+

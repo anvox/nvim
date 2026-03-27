@@ -26,6 +26,43 @@ return {
       local telescope = require('telescope')
       local actions = require('telescope.actions')
       local action_state = require('telescope.actions.state')
+      local make_entry = require('telescope.make_entry')
+      local entry_display = require('telescope.pickers.entry_display')
+
+      local function buffer_entry_maker(opts)
+        opts = opts or {}
+        local gen_from_buffer = make_entry.gen_from_buffer(opts)
+        local displayer = entry_display.create {
+          separator = " ",
+          items = {
+            { width = 2 }, -- pin
+            { remaining = true }, -- filename & path
+          },
+        }
+
+        return function(entry)
+          local base_entry = gen_from_buffer(entry)
+          if base_entry then
+            base_entry.display = function(ent)
+              local pinned = (vim.b[ent.bufnr] and vim.b[ent.bufnr].is_pinned) and "📌" or "  "
+              local display_path = vim.fn.fnamemodify(ent.filename, ":~:.")
+              local icon = ""
+              local icon_highlight = "TelescopeResultsFileIcon"
+              local has_devicons, devicons = pcall(require, 'nvim-web-devicons')
+              if has_devicons then
+                icon, icon_highlight = devicons.get_icon(ent.filename, vim.fn.fnamemodify(ent.filename, ":e"), { default = true })
+                icon = icon .. " "
+              end
+
+              return displayer {
+                { pinned, "TelescopeResultsVariable" },
+                { icon .. display_path, icon_highlight },
+              }
+            end
+          end
+          return base_entry
+        end
+      end
 
       local function flash(prompt_bufnr)
         require("flash").telescope(prompt_bufnr)
@@ -54,6 +91,16 @@ return {
           },
         },
         pickers = {
+          buffers = {
+            show_all_buffers = true,
+            sort_lastused = true,
+            ignore_current_buffer = false,
+            entry_maker = buffer_entry_maker({
+              show_all_buffers = true,
+              sort_lastused = true,
+              ignore_current_buffer = false,
+            }),
+          },
           find_files = {
             find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*", "-L" },
             case_mode = "ignore_case",
@@ -131,11 +178,7 @@ return {
         end
       end, { desc = 'Search by Egrepify' })
       vim.keymap.set('n', 'bb', function()
-        require('telescope.builtin').buffers({
-          show_all_buffers = true,
-          sort_lastused = true,
-          ignore_current_buffer = false,
-        })
+        require('telescope.builtin').buffers()
       end, { noremap = true, silent = true, desc = 'Buffers' })
     end,
   },
