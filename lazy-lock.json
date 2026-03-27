@@ -10,7 +10,6 @@
   "copilot-lualine": { "branch": "main", "commit": "222e90bd8dcdf16ca1efc4e784416afb5f011c31" },
   "copilot.lua": { "branch": "master", "commit": "538f15c4eaad8661389a4a0d1ace2d6e079fac29" },
   "flash.nvim": { "branch": "main", "commit": "fcea7ff883235d9024dc41e638f164a450c14ca2" },
-  "harpoon": { "branch": "harpoon2", "commit": "87b1a3506211538f460786c23f98ec63ad9af4e5" },
   "indent-blankline.nvim": { "branch": "master", "commit": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
   "lspkind.nvim": { "branch": "master", "commit": "c7274c48137396526b59d86232eabcdc7fed8a32" },
