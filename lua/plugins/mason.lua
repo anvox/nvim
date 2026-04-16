@@ -13,7 +13,10 @@ return {
     },
     config = function()
       require('mason-lspconfig').setup({
-        ensure_installed = { "elixirls", "ts_ls" },
+        ensure_installed = { 
+          -- "elixirls",
+          "ts_ls" 
+        },
         automatic_enable = true,
       })
     end

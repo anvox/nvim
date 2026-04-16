@@ -32,14 +32,14 @@ return {
         root_markers = { '.git' },
       })
 
-      vim.lsp.config.elixirls = {
-        settings = {
-          elixirLS = {
-            dialyzerEnabled = true,
-            fetchDeps = false
-          }
-        }
-      }
+      -- vim.lsp.config.elixirls = {
+      --   settings = {
+      --     elixirLS = {
+      --       dialyzerEnabled = true,
+      --       fetchDeps = false
+      --     }
+      --   }
+      -- }
     end
   },
   { "zbirenbaum/copilot.lua", opts = {} },
