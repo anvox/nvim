@@ -112,16 +112,16 @@ vim.api.nvim_set_hl(0, "MarkSignNumHL", { fg = "#FFA500", bg = "#505050" })
 vim.keymap.set('n', '<leader>fm', ':Telescope fusen marks<cr>', { desc = 'List all 📝 marks' })
 vim.keymap.set('n', '<leader>m', ':Telescope marks<cr>', { desc = 'List all 🔡 marks' })
 
--- Try dexter
-vim.lsp.config('dexter', {
-  cmd = { 'dexter', 'lsp' },
-  root_markers = { '.dexter.db', '.git', 'mix.exs' },
-  filetypes = { 'elixir', 'eelixir', 'heex' },
-  init_options = {
-    followDelegates = true,  -- jump through defdelegate to the target function
-    -- stdlibPath = "",      -- override Elixir stdlib path (auto-detected)
-    -- debug = false,        -- verbose logging to stderr (view with :LspLog)
-  },
-})
-
-vim.lsp.enable 'dexter'
+-- -- Try dexter
+-- vim.lsp.config('dexter', {
+--   cmd = { 'dexter', 'lsp' },
+--   root_markers = { '.dexter.db', '.git', 'mix.exs' },
+--   filetypes = { 'elixir', 'eelixir', 'heex' },
+--   init_options = {
+--     followDelegates = true,  -- jump through defdelegate to the target function
+--     -- stdlibPath = "",      -- override Elixir stdlib path (auto-detected)
+--     -- debug = false,        -- verbose logging to stderr (view with :LspLog)
+--   },
+-- })
+--
+-- vim.lsp.enable 'dexter'
