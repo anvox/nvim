@@ -10,6 +10,7 @@ null_ls.setup({
     null_ls.builtins.formatting.mix.with({
       filetypes = { "elixir", "heex", "eex" },
     }),
+    null_ls.builtins.formatting.rubyfmt,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
@@ -64,14 +65,21 @@ vim.api.nvim_create_autocmd("FileType", {
 
 vim.cmd('command! -nargs=1 -complete=file Diff vert diffsplit <args>')
 
+local emoji_signs = {
+  Error = "🚨", -- or "❌", "🔥", "💥"
+  Warn = "⚠️", -- or "🚧", "⚡", "🔶"
+  Hint = "💡", -- or "🔍", "💭", "✨"
+  Info = "ℹ️" -- or "📝", "🔷", "📌"
+}
+
 vim.diagnostic.config({
   virtual_text = {
     prefix = function(diagnostic)
       local severity_map = {
-        [vim.diagnostic.severity.ERROR] = "🔴", -- Error
-        [vim.diagnostic.severity.WARN] = "⚠️", -- Warning
-        [vim.diagnostic.severity.INFO] = "ℹ️", -- Information
-        [vim.diagnostic.severity.HINT] = "💡", -- Hint
+        [vim.diagnostic.severity.ERROR] = emoji_signs.Error,
+        [vim.diagnostic.severity.WARN] = emoji_signs.Warn,
+        [vim.diagnostic.severity.INFO] = emoji_signs.Info,
+        [vim.diagnostic.severity.HINT] = emoji_signs.Hint,
       }
       return severity_map[diagnostic.severity]
     end,
@@ -83,20 +91,6 @@ vim.diagnostic.config({
   float = {
     source = "if_many",
   },
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = true,
-})
-
-local emoji_signs = {
-  Error = "🚨", -- or "❌", "🔥", "💥"
-  Warn = "⚠️", -- or "🚧", "⚡", "🔶"
-  Hint = "💡", -- or "🔍", "💭", "✨"
-  Info = "ℹ️" -- or "📝", "🔷", "📌"
-}
--- 🔧 Apply the diagnostic signs
-vim.diagnostic.config({
   signs = {
     text = {
       [vim.diagnostic.severity.ERROR] = emoji_signs.Error,
@@ -104,24 +98,15 @@ vim.diagnostic.config({
       [vim.diagnostic.severity.HINT] = emoji_signs.Hint,
       [vim.diagnostic.severity.INFO] = emoji_signs.Info,
     }
-  }
+  },
+  underline = true,
+  update_in_insert = false,
+  severity_sort = true,
 })
+
 vim.api.nvim_set_hl(0, "MarkSignHL", { fg = "#FFA500", bg = "#505050", bold = true })
 vim.api.nvim_set_hl(0, "MarkSignNumHL", { fg = "#FFA500", bg = "#505050" })
 
 vim.keymap.set('n', '<leader>fm', ':Telescope fusen marks<cr>', { desc = 'List all 📝 marks' })
 vim.keymap.set('n', '<leader>m', ':Telescope marks<cr>', { desc = 'List all 🔡 marks' })
 
--- -- Try dexter
--- vim.lsp.config('dexter', {
---   cmd = { 'dexter', 'lsp' },
---   root_markers = { '.dexter.db', '.git', 'mix.exs' },
---   filetypes = { 'elixir', 'eelixir', 'heex' },
---   init_options = {
---     followDelegates = true,  -- jump through defdelegate to the target function
---     -- stdlibPath = "",      -- override Elixir stdlib path (auto-detected)
---     -- debug = false,        -- verbose logging to stderr (view with :LspLog)
---   },
--- })
---
--- vim.lsp.enable 'dexter'
