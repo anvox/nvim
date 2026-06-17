@@ -1,4 +1,4 @@
--- 🤖 brew install tree-sitter
+-- 🤖 brew install tree-sitter tree-sitter-cli
 return {
   {
     "romus204/tree-sitter-manager.nvim",
