@@ -40,7 +40,33 @@ return {
           } },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { { 'filename', path = 1 } },
-        lualine_x = {},
+        lualine_x = {
+          {
+            function()
+              local ok, gemini_config = pcall(require, "gemini-autocomplete.config")
+              local ok_gemini, gemini = pcall(require, "gemini-autocomplete")
+              if not (ok and ok_gemini) then return "" end
+
+              local gemini_model = gemini_config.get_config().model.model_id
+              local pos = string.find(gemini_model, '-')
+              local short_name = pos and string.sub(gemini_model, pos + 1) or gemini_model
+
+              if gemini.is_enabled() then
+                return "♊ " .. short_name
+              else
+                return "♊ (off)"
+              end
+            end,
+            color = function()
+              local ok_gemini, gemini = pcall(require, "gemini-autocomplete")
+              if ok_gemini and gemini.is_enabled() then
+                return { fg = "#7ed6a5" } -- Green when enabled
+              else
+                return { fg = "#808080" } -- Gray when disabled
+              end
+            end,
+          }
+        },
         lualine_y = {},
         lualine_z = {
           {
