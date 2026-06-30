@@ -3,12 +3,26 @@ return {
     "flyingshutter/gemini-autocomplete.nvim",
     config = function()
       local gemini = require("gemini-autocomplete")
+
+      -- Suppress spammy blacklist warnings on CursorMovedI
+      local util = require("gemini-autocomplete.util")
+      local original_notify = util.notify
+      util.notify = function(msg, level, opts)
+        if msg and msg:find("file is blacklisted") then
+          return
+        end
+        original_notify(msg, level, opts)
+      end
+
       gemini.setup({
         -- You can configure defaults here.
         -- By default, completion is enabled.
         completion = {
           enabled = true,
           insert_result_key = "<S-Tab>", -- Key to accept completion
+          -- Add filetypes or filenames to the blacklist here:
+          blacklist_filetypes = { "help", "qf", "yaml", "toml", "xml" },
+          blacklist_filenames = { ".env" },
         },
       })
 
