@@ -1,7 +1,6 @@
 return {
   {
     "nvim-lualine/lualine.nvim",
-    dependencies = { 'AndreM222/copilot-lualine' },
     opts = {
       options = {
         icons_enabled = true,
@@ -41,7 +40,7 @@ return {
           } },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { { 'filename', path = 1 } },
-        lualine_x = { 'copilot' },
+        lualine_x = {},
         lualine_y = {},
         lualine_z = {
           {

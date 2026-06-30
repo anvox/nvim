@@ -36,22 +36,22 @@ return {
         settings = {
           elixirLS = {
             dialyzerEnabled = true,
-            fetchDeps = false
+            fetchDeps = true
           }
         }
       }
     end
   },
-  { "zbirenbaum/copilot.lua", opts = {} },
-  {
-    "zbirenbaum/copilot-cmp",
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    },
-    config = function()
-      require("copilot_cmp").setup()
-    end
-  },
+  -- { "zbirenbaum/copilot.lua", opts = {} },
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   opts = {
+  --     suggestion = { enabled = false },
+  --     panel = { enabled = false },
+  --   },
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end
+  -- },
   "nvimtools/none-ls.nvim",
 }
