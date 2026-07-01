@@ -19,6 +19,7 @@ return {
           "typescript",
           "terraform",
           "hcl",
+          "go",
         },
       })
     end,

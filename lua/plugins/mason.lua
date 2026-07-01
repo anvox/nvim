@@ -15,7 +15,8 @@ return {
       require('mason-lspconfig').setup({
         ensure_installed = { 
           "elixirls",
-          "ts_ls" 
+          "ts_ls",
+          "gopls"
         },
         automatic_enable = true,
       })
