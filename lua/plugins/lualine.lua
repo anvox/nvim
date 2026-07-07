@@ -40,7 +40,21 @@ return {
           } },
         lualine_b = { 'branch', 'diff', 'diagnostics' },
         lualine_c = { { 'filename', path = 1 } },
-        lualine_x = {},
+        lualine_x = {
+          {
+            function()
+              local get_clients = vim.lsp.get_clients or vim.lsp.get_active_clients
+              local client = get_clients({ name = "copilot" })[1]
+              if client == nil then return "" end
+              if vim.tbl_isempty(client.requests or {}) then
+                return " Copilot"
+              else
+                return "⣾ Copilot"
+              end
+            end,
+            color = { fg = "#6dbd6b" },
+          }
+        },
         lualine_y = {},
         lualine_z = {
           {
