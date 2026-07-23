@@ -20,6 +20,7 @@ return {
           "terraform",
           "hcl",
           "go",
+          "graphql",
         },
       })
     end,
