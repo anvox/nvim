@@ -47,9 +47,9 @@ return {
         { noremap = true, silent = true, desc = '🧹 Close unpinned tabs' })
 
       -- 🔄 Cycle through tabs
-      vim.keymap.set('n', '<C-Left>', ':BufferLineCyclePrev<CR>',
+      vim.keymap.set('n', '<C-Left>', '<cmd>BufferLineCyclePrev<CR>',
         { noremap = true, silent = true, desc = '🔄 Previous tab' })
-      vim.keymap.set('n', '<C-Right>', ':BufferLineCycleNext<CR>', { noremap = true, silent = true, desc = '🔄 Next tab' })
+      vim.keymap.set('n', '<C-Right>', '<cmd>BufferLineCycleNext<CR>', { noremap = true, silent = true, desc = '🔄 Next tab' })
 
       -- 📌 Pin/unpin current tab with custom tracking
       vim.keymap.set('n', '<C-p>', function()
@@ -71,10 +71,20 @@ return {
       end, { noremap = true, silent = true, desc = '📌 Toggle pin tab' })
 
       -- ⬅️➡️ Move current tab forward/backward
-      vim.keymap.set('n', '<C-S-Left>', ':BufferLineMovePrev<CR>',
-        { noremap = true, silent = true, desc = '⬅️ Move tab left' })
-      vim.keymap.set('n', '<C-S-Right>', ':BufferLineMoveNext<CR>',
-        { noremap = true, silent = true, desc = '➡️ Move tab right' })
+      vim.keymap.set('n', '<C-A-Left>', '<cmd>BufferLineMovePrev<CR>',
+        { noremap = true, silent = true, desc = '⬅️ Move tab left (Ctrl+Alt+Left)' })
+      vim.keymap.set('n', '<C-A-Right>', '<cmd>BufferLineMoveNext<CR>',
+        { noremap = true, silent = true, desc = '➡️ Move tab right (Ctrl+Alt+Right)' })
+
+      -- Keep additional fallbacks (<C-S-Left>/<C-S-Right>, <C-S-h>/<C-S-l>)
+      vim.keymap.set('n', '<C-S-Left>', '<cmd>BufferLineMovePrev<CR>',
+        { noremap = true, silent = true, desc = '⬅️ Move tab left (Ctrl+Shift+Left)' })
+      vim.keymap.set('n', '<C-S-Right>', '<cmd>BufferLineMoveNext<CR>',
+        { noremap = true, silent = true, desc = '➡️ Move tab right (Ctrl+Shift+Right)' })
+      vim.keymap.set('n', '<C-S-h>', '<cmd>BufferLineMovePrev<CR>',
+        { noremap = true, silent = true, desc = '⬅️ Move tab left (Ctrl+Shift+H)' })
+      vim.keymap.set('n', '<C-S-l>', '<cmd>BufferLineMoveNext<CR>',
+        { noremap = true, silent = true, desc = '➡️ Move tab right (Ctrl+Shift+L)' })
 
       for i = 1, 9 do
         vim.keymap.set('n', '<A-' .. i .. '>', '<cmd>BufferLineGoToBuffer ' .. i .. '<cr>',

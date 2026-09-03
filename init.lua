@@ -120,3 +120,4 @@ vim.api.nvim_set_hl(0, "MarkSignNumHL", { fg = "#FFA500", bg = "#505050" })
 vim.keymap.set('n', '<leader>fm', ':Telescope fusen marks<cr>', { desc = 'List all 📝 marks' })
 vim.keymap.set('n', '<leader>m', ':Telescope marks<cr>', { desc = 'List all 🔡 marks' })
 
+vim.lsp.enable('codebook')
