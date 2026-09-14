@@ -25,10 +25,13 @@ return {
         formatting = {
           format = lspkind.cmp_format({
             mode = 'symbol',
-            maxwidth = 50,
+            maxwidth = {
+              menu = 30,
+              abbr = 20,
+            },
             ellipsis_char = '...',
             show_labelDetails = true,
-            symbol_map = { Copilot = "" },
+            symbol_map = {}
           })
         },
         window = {
@@ -54,12 +57,14 @@ return {
           ["<Tab>"] = cmp.mapping.confirm({ select = true }),
         }),
         sources = cmp.config.sources({
-          { name = "copilot" },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
         }),
+        performance = {
+          max_view_entries = 15 -- Change this number to your preferred limit
+        },
       }
     end,
   },
