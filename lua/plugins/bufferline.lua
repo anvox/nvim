@@ -47,9 +47,15 @@ return {
         { noremap = true, silent = true, desc = '🧹 Close unpinned tabs' })
 
       -- 🔄 Cycle through tabs
-      vim.keymap.set('n', '<C-Left>', '<cmd>BufferLineCyclePrev<CR>',
+      vim.keymap.set('n', '<C-lt>', '<cmd>BufferLineCyclePrev<CR>',
         { noremap = true, silent = true, desc = '🔄 Previous tab' })
-      vim.keymap.set('n', '<C-Right>', '<cmd>BufferLineCycleNext<CR>', { noremap = true, silent = true, desc = '🔄 Next tab' })
+      vim.keymap.set('n', '<C->>', '<cmd>BufferLineCycleNext<CR>',
+        { noremap = true, silent = true, desc = '🔄 Next tab' })
+      -- Fallbacks for terminals sending <C-S-,>/<C-S-.> or <C-,>/<C-.>
+      vim.keymap.set('n', '<C-S-,>', '<cmd>BufferLineCyclePrev<CR>',
+        { noremap = true, silent = true, desc = '🔄 Previous tab' })
+      vim.keymap.set('n', '<C-S-.>', '<cmd>BufferLineCycleNext<CR>',
+        { noremap = true, silent = true, desc = '🔄 Next tab' })
 
       -- 📌 Pin/unpin current tab with custom tracking
       vim.keymap.set('n', '<C-p>', function()
